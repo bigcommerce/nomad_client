@@ -1,4 +1,7 @@
 Changelog for nomad_client.
+## 0.3.6
+* Add support for the [stop allocation](https://www.nomadproject.io/api-docs/allocations#stop-allocation) endpoint.
+
 ## 0.3.5
 * Add DeploymentID to deployment/promote/:id requests
 * Add /metrics endpoints
