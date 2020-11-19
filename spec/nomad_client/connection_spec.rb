@@ -11,6 +11,7 @@ module NomadClient
           expect(nomad_client.configuration.port).to          eq Configuration::DEFAULT_PORT
           expect(nomad_client.configuration.api_base_path).to eq Configuration::DEFAULT_API_BASE_PATH
           expect(nomad_client.configuration.ssl).to           be_empty
+          expect(nomad_client.connection.adapter.name).to     eq('Faraday::Adapter::NetHttpPersistent')
         end
       end
       context 'with a configuration block passed' do
@@ -29,6 +30,15 @@ module NomadClient
           expect(nomad_client.configuration.api_base_path).to eq api_base_path
           expect(nomad_client.configuration.ssl).to           eq ssl_config
           expect(nomad_client.connection.ssl).to_not          be_empty
+        end
+      end
+      context 'with pool_size set to 0' do
+        it 'should use Net::HTTP as the adapater' do
+          nomad_client = NomadClient::Connection.new(nomad_url) do |config|
+            config.pool_size = 0.freeze
+          end
+
+          expect(nomad_client.connection.adapter.name).to eq('Faraday::Adapter::NetHttp')
         end
       end
     end

@@ -20,9 +20,18 @@ module NomadClient
         faraday.response(:json, :content_type => /\bjson$/)
         faraday.options.timeout = configuration.timeout
         faraday.options.open_timeout = configuration.open_timeout
-        faraday.adapter(:net_http_persistent, pool_size: configuration.pool_size) do |http|
-          http.idle_timeout = configuration.idle_timeout
-          http.retry_change_requests = configuration.retry_change_requests
+
+        # Use Net::HTTP if pool_size is set to 0
+        if configuration.pool_size == 0
+          faraday.adapter(:net_http) do |http|
+            http.idle_timeout = configuration.idle_timeout
+            http.retry_change_requests = configuration.retry_change_requests
+          end
+        else
+          faraday.adapter(:net_http_persistent, pool_size: configuration.pool_size) do |http|
+            http.idle_timeout = configuration.idle_timeout
+            http.retry_change_requests = configuration.retry_change_requests
+          end
         end
       end
     end
