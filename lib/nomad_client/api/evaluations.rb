@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def evaluations
       Api::Evaluations.new(self)
     end
   end
+
   module Api
     class Evaluations < Path
-
       ##
       # Lists all the evaluations
       # https://www.nomadproject.io/docs/http/evals.html

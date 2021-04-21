@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def evaluation
       Api::Evaluation.new(self)
     end
   end
+
   module Api
     class Evaluation < Path
-
       ##
       # Query a specific evaluation
       # https://www.nomadproject.io/docs/http/eval.html

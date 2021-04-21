@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def deployments
       Api::Deployments.new(self)
     end
   end
+
   module Api
     class Deployments < Path
-
       ##
       # Lists all the deployments
       # https://www.nomadproject.io/api/deployments.html

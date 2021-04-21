@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def system
       Api::System.new(self)
     end
   end
+
   module Api
     class System < Path
-
       ##
       # Initiate garbage collection of jobs, evals, allocations and nodes
       # https://www.nomadproject.io/docs/http/system.html
@@ -28,7 +30,6 @@ module NomadClient
           req.url "system/reconcile/summaries"
         end
       end
-
     end
   end
 end

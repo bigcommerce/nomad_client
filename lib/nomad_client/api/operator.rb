@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def operator
       Api::Operator.new(self)
     end
   end
+
   module Api
     class Operator < Path
-
       ##
       # Queries the status of a client node registered with Nomad
       # https://www.nomadproject.io/api/operator.html#read-raft-configuration

@@ -1,4 +1,11 @@
 Changelog for nomad_client.
+
+## 0.4.0
+
+- Add Ruby 3 support
+- Upgrade net-http-persistent to 4.0
+- Add rubocop
+
 ## 0.3.6
 * Add support for the [stop allocation](https://www.nomadproject.io/api-docs/allocations#stop-allocation) endpoint.
 

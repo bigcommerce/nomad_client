@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def agent
       Api::Agent.new(self)
     end
   end
+
   module Api
     class Agent < Path
-
       ##
       # Query the state of the target agent
       # https://www.nomadproject.io/docs/http/agent-self.html
@@ -84,7 +86,6 @@ module NomadClient
           }
         end
       end
-
     end
   end
 end

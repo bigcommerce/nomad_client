@@ -1,13 +1,14 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'nomad_client/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "nomad_client"
+  spec.name          = 'nomad_client'
   spec.version       = NomadClient::VERSION
-  spec.authors       = ["Jason Gellatly"]
-  spec.email         = ["jason.gellatly@bigcommerce.com"]
+  spec.authors       = ['Jason Gellatly']
+  spec.email         = ['jason.gellatly@bigcommerce.com']
   spec.summary       = %q{Client gem for interacting with Hashicorp's Nomad HTTP API}
   spec.description   = %q{Client gem for interacting with Nomad HTTP API. Contains most endpoints as a thin wrapper around Faraday.}
   spec.licenses      = ['MIT']
@@ -17,26 +18,31 @@ Gem::Specification.new do |spec|
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
   else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
+    raise 'RubyGems 2.0 or newer is required to protect against ' \
+      'public gem pushes.'
   end
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
-  spec.bindir        = "exe"
+  spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_development_dependency "bundler", "~> 1.13"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "binding_of_caller"
-  spec.add_development_dependency "yard"
+  spec.add_development_dependency 'binding_of_caller'
+  spec.add_development_dependency 'bundler-audit', '>= 0.6'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rake', '>= 10.0'
+  spec.add_development_dependency 'rspec', '>= 3.8'
+  spec.add_development_dependency 'rspec_junit_formatter', '>= 0.4'
+  spec.add_development_dependency 'rubocop', '>= 1.1'
+  spec.add_development_dependency 'rubocop-packaging', '~> 0.5'
+  spec.add_development_dependency 'rubocop-performance', '~> 1.8'
+  spec.add_development_dependency 'rubocop-thread_safety', '~> 0.3'
+  spec.add_development_dependency 'yard'
+
   spec.add_dependency 'faraday', '>= 0.9'
   spec.add_dependency 'faraday_middleware', '>= 0.10'
-  spec.add_dependency 'hashie', '~> 3.4'
-  spec.add_dependency 'net-http-persistent', '~> 3.1'
-
+  spec.add_dependency 'hashie', '>= 3.4'
+  spec.add_dependency 'net-http-persistent', '~> 4.0'
 end

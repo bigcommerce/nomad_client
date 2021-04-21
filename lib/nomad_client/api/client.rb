@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def client
       Api::Client.new(self)
     end
   end
+
   module Api
     class Client < Path
-
       ##
       # Query the actual resource usage of a Nomad client
       # https://www.nomadproject.io/docs/http/client-stats.html
@@ -59,8 +61,8 @@ module NomadClient
         connection.get do |req|
           req.url "client/fs/readat/#{alloc_id}"
           req.params[:offset] = offset
-          req.params[:limit]  = limit
-          req.params[:path]   = path
+          req.params[:limit] = limit
+          req.params[:path] = path
         end
       end
 
@@ -80,7 +82,7 @@ module NomadClient
           req.params[:offset] = offset
           req.params[:origin] = origin
           req.params[:follow] = follow
-          req.params[:path]   = path
+          req.params[:path] = path
         end
       end
 
@@ -100,12 +102,12 @@ module NomadClient
       def stream_logs(alloc_id, task, follow: false, type: 'stdout', offset: 0, origin: 'start', plain: false)
         connection.get do |req|
           req.url "client/fs/logs/#{alloc_id}"
-          req.params[:task]   = task
+          req.params[:task] = task
           req.params[:follow] = follow
-          req.params[:type]   = type
+          req.params[:type] = type
           req.params[:offset] = offset
           req.params[:origin] = origin
-          req.params[:plain]  = plain
+          req.params[:plain] = plain
         end
       end
 
@@ -120,7 +122,7 @@ module NomadClient
       def list_files(alloc_id, path: '/')
         connection.get do |req|
           req.url "client/fs/ls/#{alloc_id}"
-          req.params[:path]   = path
+          req.params[:path] = path
         end
       end
 
@@ -135,10 +137,9 @@ module NomadClient
       def stat_file(alloc_id, path: '/')
         connection.get do |req|
           req.url "client/fs/stat/#{alloc_id}"
-          req.params[:path]   = path
+          req.params[:path] = path
         end
       end
-
     end
   end
 end

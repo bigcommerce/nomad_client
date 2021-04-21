@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def allocation
       Api::Allocation.new(self)
     end
   end
+
   module Api
     class Allocation < Path
-
       ##
       # Query a specific allocation
       # https://www.nomadproject.io/docs/http/alloc.html

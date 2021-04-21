@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def job
       Api::Job.new(self)
     end
   end
+
   module Api
     class Job < Path
-
       ##
       # Query a single job for its specification and status
       # https://www.nomadproject.io/docs/http/job.html
@@ -213,7 +215,7 @@ module NomadClient
       #
       # @param [String] id The ID of the job according to Nomad
       # @param [Integer] job_version The job version to set the stability on
-      # @param [Integer] enforce_prior_version Whether the job should be marked as stable or not
+      # @param [Boolean] stable enforce_prior_version Whether the job should be marked as stable or not
       # @return [Faraday::Response] A faraday response from Nomad
       def stable(id, job_version: 0, stable: false)
         connection.post do |req|
@@ -224,7 +226,6 @@ module NomadClient
           }
         end
       end
-
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Configuration
     # FQDN of the Nomad you're talking to, e.g: https://nomad.local
@@ -26,18 +28,18 @@ module NomadClient
     attr_accessor :idle_timeout
     attr_accessor :retry_change_requests
 
-    DEFAULT_PORT                  = 4646.freeze
-    DEFAULT_API_BASE_PATH         = '/v1'.freeze
+    DEFAULT_PORT                  = 4_646
+    DEFAULT_API_BASE_PATH         = '/v1'
     DEFAULT_SSL                   = {}.freeze
-    DEFAULT_TIMEOUT               = 5.freeze
-    DEFAULT_OPEN_TIMEOUT          = 2.freeze
-    DEFAULT_RETRY_MAX             = 3.freeze
-    DEFAULT_RETRY_INTERVAL        = 1.0.freeze
-    DEFAULT_RETRY_RANDOMNESS      = 0.5.freeze
-    DEFAULT_RETRY_BACKOFF_FACTOR  = 2.0.freeze
-    DEFAULT_POOL_SIZE             = 5.freeze
-    DEFAULT_IDLE_TIMEOUT          = 100.freeze
-    DEFAULT_RETRY_CHANGE_REQUESTS = true.freeze
+    DEFAULT_TIMEOUT               = 5
+    DEFAULT_OPEN_TIMEOUT          = 2
+    DEFAULT_RETRY_MAX             = 3
+    DEFAULT_RETRY_INTERVAL        = 1.0
+    DEFAULT_RETRY_RANDOMNESS      = 0.5
+    DEFAULT_RETRY_BACKOFF_FACTOR  = 2.0
+    DEFAULT_POOL_SIZE             = 5
+    DEFAULT_IDLE_TIMEOUT          = 100
+    DEFAULT_RETRY_CHANGE_REQUESTS = true
 
     def initialize
       @port                  = DEFAULT_PORT

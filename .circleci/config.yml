@@ -1,36 +1,44 @@
-# Ruby CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-ruby/ for more details
-#
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-       - image: circleci/ruby:2.4.1-node-browsers
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-    working_directory: ~/repo
-    steps:
-      - checkout
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-      - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      # run tests!
-      - run:
-          name: run tests
-          command: |
-            bundle exec rake
+version: 2.1
+
+orbs:
+  ci: bigcommerce/internal@volatile
+  ruby: bigcommerce/internal-ruby@volatile
+
+ruby_2_7_defaults: &ruby_2_7_defaults
+  e:
+    name: ruby/ruby
+    ruby-version: '2.7'
+  notify_failure: false
+
+ruby_3_0_defaults: &ruby_3_0_defaults
+  e:
+    name: ruby/ruby
+    ruby-version: '3.0'
+  notify_failure: false
+
+workflows:
+  version: 2
+  ruby_2_7:
+    jobs:
+      - ruby/bundle-audit:
+          <<: *ruby_2_7_defaults
+          name: ruby-2_7-bundle_audit
+      - ruby/rubocop:
+          <<: *ruby_2_7_defaults
+          name: ruby-2_7-rubocop
+      - ruby/rspec-unit:
+          <<: *ruby_2_7_defaults
+          name: ruby-2_7-rspec_unit
+          db: false
+  ruby_3_0:
+    jobs:
+      - ruby/bundle-audit:
+          <<: *ruby_3_0_defaults
+          name: ruby-3_0-bundle_audit
+      - ruby/rubocop:
+          <<: *ruby_3_0_defaults
+          name: ruby-3_0-rubocop
+      - ruby/rspec-unit:
+          <<: *ruby_3_0_defaults
+          name: ruby-3_0-rspec_unit
+          db: false

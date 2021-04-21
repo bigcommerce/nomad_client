@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def search
       Api::Search.new(self)
     end
   end
+
   module Api
     class Search < Path
-
       ##
       # Returns the address of the current leader in the region
       # https://www.nomadproject.io/api/search.html
