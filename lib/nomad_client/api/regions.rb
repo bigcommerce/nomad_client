@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def regions
       Api::Regions.new(self)
     end
   end
+
   module Api
     class Regions < Path
-
       ##
       # Returns the known region names
       # https://www.nomadproject.io/docs/http/regions.html
@@ -17,7 +19,6 @@ module NomadClient
           req.url "regions"
         end
       end
-
     end
   end
 end

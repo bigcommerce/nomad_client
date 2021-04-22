@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'faraday_middleware'
 require 'net/http'
+
 module NomadClient
   class Connection
-
+    # @!attribute configuration
+    #   @return [Configuration]
     attr_accessor :configuration
 
     def initialize(url, config = Configuration.new)
@@ -13,11 +17,11 @@ module NomadClient
     end
 
     def connection
-      @connection ||= ::Faraday.new({ url: connection_url, ssl: configuration.ssl }) do |faraday|
+      @connection ||= ::Faraday.new(url: connection_url, ssl: configuration.ssl) do |faraday|
         faraday.request(:json)
         faraday.request(:retry, retry_options)
         faraday.use(FaradayMiddleware::Mashify)
-        faraday.response(:json, :content_type => /\bjson$/)
+        faraday.response(:json, content_type: /\bjson$/)
         faraday.options.timeout = configuration.timeout
         faraday.options.open_timeout = configuration.open_timeout
         faraday.adapter(:net_http_persistent, pool_size: configuration.pool_size) do |http|
@@ -35,7 +39,9 @@ module NomadClient
       always_retryable = [Faraday::ConnectionFailed, Errno::ECONNREFUSED, ::Net::OpenTimeout]
       # Timeout::Error is the parent class of Net::ReadTimeout as well as Net::OpenTimeout
       idempotent_retryable = always_retryable + [::Timeout::Error, 'Error::TimeoutError']
-      { max: configuration.retry_max, interval: configuration.retry_interval,
+      {
+        max: configuration.retry_max,
+        interval: configuration.retry_interval,
         # We only retry non-idempotent requests if we're sure the request was never received, not if we just couldn't
         # read the response in a reasonable time frame.
         retry_if: lambda do |_env, exception|

@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def node
       Api::Node.new(self)
     end
   end
+
   module Api
     class Node < Path
-
       ##
       # Query the status of a client node registered with Nomad
       # https://www.nomadproject.io/docs/http/node.html

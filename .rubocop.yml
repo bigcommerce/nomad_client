@@ -1,0 +1,63 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  NewCops: enable
+  Exclude:
+    - spec/**/*_spec.rb
+    - .bundle/**/*
+    - vendor/**/*
+    - tmp/**/*
+    - log/**/*
+    - nomad_client.gemspec
+require:
+  - rubocop-performance
+  - rubocop-thread_safety
+  - rubocop-packaging
+
+# Allow *VALID_CONFIG_KEYS.keys
+Lint/AmbiguousOperator:
+  Enabled: false
+
+# This cop conflicts with other cops
+Layout/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/AbcSize:
+  Max: 40
+
+Metrics/CyclomaticComplexity:
+  Max: 20
+
+Metrics/PerceivedComplexity:
+  Max: 30
+
+Metrics/ParameterLists:
+  Max: 20
+
+Style/HashEachMethods:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+# This cop is often incorrect as it sometimes improperly infers type of the subject
+Style/RedundantArgument:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+
+########################################################################################################################
+# To Fix
+########################################################################################################################
+
+Style/AccessorGrouping:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

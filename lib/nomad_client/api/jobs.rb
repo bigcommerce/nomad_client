@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def jobs
       Api::Jobs.new(self)
     end
   end
+
   module Api
     class Jobs < Path
-
       ##
       # Lists all the jobs registered with Nomad
       # https://www.nomadproject.io/docs/http/jobs.html
@@ -15,7 +17,7 @@ module NomadClient
       # @return [Faraday::Response] A faraday response from Nomad
       def get(prefix: nil)
         connection.get do |req|
-          req.url "jobs"
+          req.url 'jobs'
           req.params[:prefix] = prefix
         end
       end
@@ -39,9 +41,9 @@ module NomadClient
       # @return [Faraday::Response] A faraday response from Nomad
       def parse(job)
         connection.post do |req|
-          req.url "jobs/parse"
+          req.url 'jobs/parse'
           req.body = {
-            "JobHCL": job
+            JobHCL: job
           }
         end
       end

@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module NomadClient
   class Connection
     def validate
       Api::Validate.new(self)
     end
   end
+
   module Api
     class Validate < Path
-
       ##
       # Validates a Nomad job file. The local Nomad agent forwards the request to a server.
       # In the event a server can't be reached the agent verifies the job file locally but skips validating driver configurations
@@ -20,7 +22,6 @@ module NomadClient
           req.body = job
         end
       end
-
     end
   end
 end

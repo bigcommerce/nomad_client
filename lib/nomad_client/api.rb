@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NomadClient
   module Api
     require_relative 'api/path'
