@@ -26,7 +26,7 @@ module NomadClient
         faraday.options.open_timeout = configuration.open_timeout
         faraday.adapter(:net_http_persistent, pool_size: configuration.pool_size) do |http|
           http.idle_timeout = configuration.idle_timeout
-          http.retry_change_requests = configuration.retry_change_requests
+          http.retry_change_requests = configuration.retry_change_requests if retry_change_requests_supported?
         end
       end
     end
@@ -51,6 +51,16 @@ module NomadClient
         backoff_factor: configuration.retry_backoff_factor,
         exceptions: idempotent_retryable
       }
+    end
+
+    private
+
+    ##
+    # If we're on Net::HTTP::Persistent > 4.0, we don't support retry_change_requests
+    # @return [Boolean]
+    #
+    def retry_change_requests_supported?
+      ::Gem::Version.new(Net::HTTP::Persistent::VERSION) < ::Gem::Version.new('4.0.0')
     end
   end
 end

@@ -26,6 +26,9 @@ module NomadClient
     # net-http-persistent configuration
     attr_accessor :pool_size
     attr_accessor :idle_timeout
+    # @!attribute retry_change_requests
+    #   @return [Boolean]
+    #   @deprecated In Net::HTTP::Persistent 4.0, this functionality is deprecated
     attr_accessor :retry_change_requests
 
     DEFAULT_PORT                  = 4_646
