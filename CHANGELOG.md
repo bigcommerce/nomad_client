@@ -1,5 +1,9 @@
 Changelog for nomad_client.
 
+## Pending Release
+
+- Remove retry_change_requests for net-http-persistent 4.0 or greater
+
 ## 0.4.0
 
 - Add Ruby 3 support
