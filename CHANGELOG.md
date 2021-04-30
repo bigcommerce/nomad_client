@@ -2,6 +2,8 @@ Changelog for nomad_client.
 
 ## Pending Release
 
+## 0.4.1
+
 - Remove retry_change_requests for net-http-persistent 4.0 or greater
 
 ## 0.4.0
